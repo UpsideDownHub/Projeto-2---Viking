@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 212599700878537732}
   - component: {fileID: 61043587853217206}
   - component: {fileID: 50771252149629918}
+  - component: {fileID: 114323970297831856}
+  - component: {fileID: 114699072188809368}
   m_Layer: 0
   m_Name: shot
   m_TagString: Untagged
@@ -87,6 +89,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.2}
   m_EdgeRadius: 0
+--- !u!114 &114323970297831856
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1883667432744444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecc5a585b8a4fc64d92ea8a34d49d8f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+--- !u!114 &114699072188809368
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1883667432744444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecc5a585b8a4fc64d92ea8a34d49d8f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
 --- !u!212 &212599700878537732
 SpriteRenderer:
   m_ObjectHideFlags: 1

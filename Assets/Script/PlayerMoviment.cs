@@ -8,6 +8,9 @@ public class PlayerMoviment : MonoBehaviour
     [SerializeField] float speedWalk = 4;
     [SerializeField] float speedRun = 5;
     [SerializeField] Transform shot;
+    float shootRate = 0.5f;
+    float shootCoolDown;
+
     float speed;
     Vector2 move;
 
@@ -15,12 +18,18 @@ public class PlayerMoviment : MonoBehaviour
 
     void Start()
     {
+        shootCoolDown = 0;
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        #region Player Moviment
+        if (shootCoolDown > 0)
+        {
+            shootCoolDown -= Time.deltaTime;
+        }
+
+        #region PlayerMoviment
         if (Input.GetKey(KeyCode.LeftShift))
             speed = speedRun;
         else
@@ -43,19 +52,25 @@ public class PlayerMoviment : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (shootCoolDown <= 0 && Input.GetButtonDown("Fire1"))
         {
+            shootCoolDown = shootRate;
             Instantiate(shot, transform.position, shot.rotation);
         }
     }
 
-    #region Land Collision
+    #region LandCollision
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ice"))
         {
             speedRun = 4;
             speedWalk = 3;
+        }
+        else if(collision.gameObject.layer == LayerMask.NameToLayer("Water"))
+        {
+            speedRun = 3;
+            speedWalk = 2;
         }
         else
         {
@@ -64,5 +79,5 @@ public class PlayerMoviment : MonoBehaviour
         }
     }
     #endregion
-    
+
 }

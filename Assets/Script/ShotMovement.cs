@@ -2,31 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotMovement : MonoBehaviour {
+public class ShotMovement : MonoBehaviour
+{
 
-    [SerializeField] float speed = 5;
+    [SerializeField] float speed = 10;
     Vector3 mouse;
 
-	void Start () {
+    void Start()
+    {
         mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouse.z = -1;
-	}
-	
-	void FixedUpdate () {
-        int T;
+    }
 
+    void FixedUpdate()
+    {
         transform.position = Vector3.MoveTowards(transform.position, mouse, speed * Time.deltaTime);
 
-        if(transform.position == mouse)
+        if (transform.position == mouse)
         {
-            T = 0;
+            Destroy(gameObject);
         }
         else
         {
-            T = 5;
+            Destroy(gameObject, 5);
         }
 
-        Destroy(gameObject, T);
 
     }
 }
