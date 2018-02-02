@@ -4,29 +4,24 @@ using UnityEngine;
 
 public class PlayerMoviment : MonoBehaviour
 {
+    public Vector2 mousePosition;
 
     [SerializeField] float speedWalk = 5;
     [SerializeField] float speedRun = 4;
+    [SerializeField] Transform shotPrefab;
     float speed;
     Vector2 move;
-
-    //BoxCollider2D bc = new BoxCollider2D();
-    //SpriteRenderer sr = new SpriteRenderer();
+    
     Rigidbody2D rb = new Rigidbody2D();
 
-    // Use this for initialization
     void Start()
     {
-        //bc = GetComponent<BoxCollider2D>();
-        //sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //Debug.Log(bc.gameObject.layer == LayerMask.NameToLayer("Ice"));
-
+        #region PlayerMoviment
         if (Input.GetKey(KeyCode.LeftShift))
             speed = speedRun;
         else
@@ -34,8 +29,8 @@ public class PlayerMoviment : MonoBehaviour
 
         if (speedRun == 4)
         {
-            move.x = Input.GetAxis("Horizontal") * 2 * Time.deltaTime;
-            move.y = Input.GetAxis("Vertical") * 3 * Time.deltaTime;
+            move.x = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+            move.y = Input.GetAxis("Vertical") * speed * Time.deltaTime;
             rb.velocity += move;
         }
         else
@@ -44,19 +39,32 @@ public class PlayerMoviment : MonoBehaviour
             Vector3 moveLand = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime, Input.GetAxis("Vertical") * Time.deltaTime);
             transform.position += moveLand * speed;
         }
+        #endregion
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Instantiate(shotPrefab, transform.position,shotPrefab.rotation);
+            //ShotMoviment sm = GetComponent<ShotMoviment>();
+            //sm.CallShoot(mousePosition);
+        }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ice"))
-        {
-            speedRun = 4;
-            speedWalk = 3;
-        }
-        else
-        {
-            speedRun = 5;
-            speedWalk = 4;
-        }
-    }
+    //#region FlourRegion
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.layer == LayerMask.NameToLayer("Ice"))
+    //    {
+    //        speedRun = 4;
+    //        speedWalk = 3;
+    //    }
+    //    else
+    //    {
+    //        speedRun = 5;
+    //        speedWalk = 4;
+    //    }
+    //}
+    //#endregion
+
+
+
 }
