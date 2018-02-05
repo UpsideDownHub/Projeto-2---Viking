@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotMovement : MonoBehaviour
+public class PlayerShotMovement : MonoBehaviour
 {
 
-    [SerializeField] float speed = 10;
+    [SerializeField] float speed = 5;
     Vector3 mouse;
 
     void Start()

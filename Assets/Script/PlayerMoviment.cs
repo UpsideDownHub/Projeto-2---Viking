@@ -8,11 +8,12 @@ public class PlayerMoviment : MonoBehaviour
     [SerializeField] float speedWalk = 4;
     [SerializeField] float speedRun = 5;
     [SerializeField] Transform shot;
-    float shootRate = 0.5f;
+    float shootRate = 1f;
     float shootCoolDown;
 
     float speed;
     Vector2 move;
+    Vector3 target;
 
     Rigidbody2D rb = new Rigidbody2D();
 
@@ -24,10 +25,12 @@ public class PlayerMoviment : MonoBehaviour
 
     void Update()
     {
+        #region Decrease TimeToShoot
         if (shootCoolDown > 0)
         {
             shootCoolDown -= Time.deltaTime;
         }
+        #endregion
 
         #region PlayerMoviment
         if (Input.GetKey(KeyCode.LeftShift))
@@ -52,11 +55,24 @@ public class PlayerMoviment : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        #region Turn Player
+
+        target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        target.z = 0f;
+        
+        var angle = Mathf.Atan2(target.y - transform.position.y, target.x - transform.position.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        #endregion
+
+        #region Shoot
         if (shootCoolDown <= 0 && Input.GetButtonDown("Fire1"))
         {
             shootCoolDown = shootRate;
             Instantiate(shot, transform.position, shot.rotation);
         }
+        #endregion
     }
 
     #region LandCollision
