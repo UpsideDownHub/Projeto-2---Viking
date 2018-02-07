@@ -8,16 +8,17 @@ public class PlayerMoviment : MonoBehaviour
     [SerializeField] float speedWalk = 4;
     [SerializeField] float speedRun = 5;
     [SerializeField] Transform shot;
-    public int playerLife;
+    [SerializeField] int playerLife;
+    [SerializeField] GameObject Item;
     float shootRate = 1f;
     float shootCoolDown;
     string kinfOfFlour;
 
+    public int typeOfShot = 1;
     float speed;
-    public Vector2 move;
+    Vector2 move;
     Vector3 target;
-
-    Rigidbody2D rb = new Rigidbody2D();
+    Rigidbody2D rb;
 
     void Start()
     {
@@ -83,6 +84,12 @@ public class PlayerMoviment : MonoBehaviour
         if (collision.gameObject.tag == "EnemyShot")
         {
             playerLife--;
+        }
+
+        if(collision.gameObject.tag == "Item")
+        {
+            Destroy(Item);
+            typeOfShot = 2;
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ice"))

@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class PlayerShotMovement : MonoBehaviour
 {
-    [SerializeField] Transform player;
+    PlayerMoviment pl;
+    GameObject Player;
+    Collider2D shotCollider = new Collider2D();
+    Transform enemy;
     [SerializeField] float speed = 5;
+    [SerializeField] LayerMask enemies;
     Vector3 mouse;
     Vector3 direction;
 
     void Start()
     {
-        player = GameObject.Find("Player").transform;
+        Player = GameObject.Find("Player");
+        pl = Player.GetComponent<PlayerMoviment>();
         mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouse.z = -1;
         direction = mouse - transform.position;
@@ -19,10 +24,22 @@ public class PlayerShotMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
+        if (enemy == null && pl.typeOfShot == 2)
+            FindTarget();
+        if (pl.typeOfShot == 1)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
 
-        Destroy(gameObject, 3);
-
+            Destroy(gameObject, 3);
+        }
+        else if (pl.typeOfShot == 2)
+        {
+            if (enemy == null)
+                transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
+            else
+                transform.position = Vector3.MoveTowards(transform.position, enemy.position, speed * Time.deltaTime);
+            Destroy(gameObject, 6);
+        }
 
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -31,6 +48,12 @@ public class PlayerShotMovement : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
 
+    void FindTarget()
+    {
+        shotCollider = Physics2D.OverlapCircle(transform.position, 4f, enemies);
+        if(shotCollider != null)
+            enemy = shotCollider.gameObject.transform;
     }
 }

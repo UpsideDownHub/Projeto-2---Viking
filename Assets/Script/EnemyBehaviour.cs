@@ -11,7 +11,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] Transform shot;
 
     [SerializeField] float enemySpeed = 3;
-    
+
     float shootRate = 1;
     float shootCoolDown;
 
