@@ -50,7 +50,6 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (IsNear())
         {
-            Debug.Log("asd");
         }
 
         #endregion
@@ -90,4 +89,12 @@ public class EnemyBehaviour : MonoBehaviour
         return isNear;
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "PlayerShot")
+        {
+            Destroy(gameObject);
+        }
+
+    }
 }

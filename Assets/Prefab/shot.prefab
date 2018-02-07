@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 61043587853217206}
   - component: {fileID: 50771252149629918}
   - component: {fileID: 114257821129598730}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: shot
-  m_TagString: Untagged
+  m_TagString: PlayerShot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

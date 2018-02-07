@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PlayerShotMovement : MonoBehaviour
 {
+    [SerializeField] Transform player;
     [SerializeField] float speed = 5;
     Vector3 mouse;
     Vector3 direction;
 
     void Start()
     {
+        player = GameObject.Find("Player").transform;
         mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouse.z = -1;
         direction = mouse - transform.position;
