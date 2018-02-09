@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerShotMovement : MonoBehaviour
 {
-    PlayerMoviment pl;
+    PlayerScript pl;
     GameObject Player;
     Collider2D shotCollider = new Collider2D();
     Transform enemy;
@@ -16,7 +16,7 @@ public class PlayerShotMovement : MonoBehaviour
     void Start()
     {
         Player = GameObject.Find("Player");
-        pl = Player.GetComponent<PlayerMoviment>();
+        pl = Player.GetComponent<PlayerScript>();
         mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouse.z = -1;
         direction = mouse - transform.position;

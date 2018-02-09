@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMoviment : MonoBehaviour
+public class PlayerScript : MonoBehaviour
 {
 
     [SerializeField] float speedWalk = 4;

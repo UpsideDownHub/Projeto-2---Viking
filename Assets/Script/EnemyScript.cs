@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBehaviour : MonoBehaviour
+public class EnemyScript : MonoBehaviour
 {
-    [SerializeField] Transform EnemyVision;
     [SerializeField] LayerMask Players;
     [SerializeField] Transform Player;
+    ShowingEnemyLife sel;
+    [SerializeField] GameObject EnemyLifeLabel;
 
     [SerializeField] Transform shot;
 
@@ -14,9 +15,13 @@ public class EnemyBehaviour : MonoBehaviour
 
     float shootRate = 1;
     float shootCoolDown;
+    int totalLife = 5;
+    int enemyLife;
 
     void Start()
     {
+        enemyLife = totalLife;
+        sel = EnemyLifeLabel.GetComponent<ShowingEnemyLife>();
         shootCoolDown = 0;
     }
 
@@ -66,26 +71,31 @@ public class EnemyBehaviour : MonoBehaviour
         #endregion
 
         #endregion
+
+        if (enemyLife <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     bool CanSee()
     {
         bool canSee;
-        canSee = Physics2D.OverlapCircle(EnemyVision.position, 12f, Players);
+        canSee = Physics2D.OverlapCircle(transform.position, 12f, Players);
         return canSee;
     }
 
     bool IsAlmostNear()
     {
         bool isAlmostNear;
-        isAlmostNear = Physics2D.OverlapCircle(EnemyVision.position, 8f, Players);
+        isAlmostNear = Physics2D.OverlapCircle(transform.position, 8f, Players);
         return isAlmostNear;
     }
 
     bool IsNear()
     {
         bool isNear;
-        isNear = Physics2D.OverlapCircle(EnemyVision.position, 3.5f, Players);
+        isNear = Physics2D.OverlapCircle(transform.position, 3.5f, Players);
         return isNear;
     }
 
@@ -93,8 +103,8 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (collision.gameObject.tag == "PlayerShot")
         {
-            Destroy(gameObject);
+            enemyLife--;
+            sel.ShowEnemyLife(enemyLife, totalLife);
         }
-
     }
 }
