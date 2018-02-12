@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-
     [SerializeField] float speedWalk = 4;
     [SerializeField] float speedRun = 5;
     [SerializeField] Transform shot;
@@ -58,6 +57,7 @@ public class PlayerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         #region Turn Player
 
         target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -86,7 +86,7 @@ public class PlayerScript : MonoBehaviour
             playerLife--;
         }
 
-        if(collision.gameObject.tag == "Item")
+        if (collision.gameObject.tag == "Item")
         {
             Destroy(Item);
             typeOfShot = 2;
