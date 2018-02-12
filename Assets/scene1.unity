@@ -644,6 +644,7 @@ GameObject:
   - component: {fileID: 604228516}
   - component: {fileID: 604228515}
   - component: {fileID: 604228514}
+  - component: {fileID: 604228517}
   m_Layer: 0
   m_Name: Seagull_Flying
   m_TagString: Untagged
@@ -725,6 +726,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &604228517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 604228513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54dde53061f06e64899d4a2551748cfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &747387471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,7 +1111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a66262fb8c6be5342a02be772daefea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Seagull: {fileID: 604228516}
   speedWalk: 4
   speedRun: 5
   shot: {fileID: 4410465958172338, guid: bb89ba5c058e6fc4d9ebc02998df576c, type: 2}
