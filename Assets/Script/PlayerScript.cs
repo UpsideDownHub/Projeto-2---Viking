@@ -7,6 +7,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float speedWalk = 4;
     [SerializeField] float speedRun = 5;
     [SerializeField] Transform shot;
+    [SerializeField] Transform playerFoot;
     [SerializeField] int playerLife;
     [SerializeField] GameObject Item;
     float shootRate = 1f;
@@ -30,7 +31,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
 
-        sr.sortingOrder = Mathf.RoundToInt(transform.position.y * -10f);
+        sr.sortingOrder = Mathf.RoundToInt(playerFoot.transform.position.y * -10f);
 
         #region Decrease TimeToShoot
         if (shootCoolDown > 0)
