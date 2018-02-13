@@ -7,17 +7,11 @@ public class ShowingEnemyLife : MonoBehaviour {
     
     Text enemyLifeText;
 
-	// Use this for initialization
 	void Start () {
         enemyLifeText = GetComponent<Text>();
         enemyLifeText.alignment = TextAnchor.UpperCenter;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
+    
     public void ShowEnemyLife(int enemyLife, int totalLife)
     {
         string Life = enemyLife.ToString() + "/" + totalLife.ToString();

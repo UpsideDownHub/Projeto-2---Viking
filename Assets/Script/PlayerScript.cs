@@ -12,21 +12,26 @@ public class PlayerScript : MonoBehaviour
     float shootRate = 1f;
     float shootCoolDown;
     string kinfOfFlour;
-
+    
     public int typeOfShot = 1;
     float speed;
     Vector2 move;
     Vector3 target;
     Rigidbody2D rb;
+    SpriteRenderer sr;
 
     void Start()
     {
+        sr = GetComponent<SpriteRenderer>();
         shootCoolDown = 0;
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
+
+        sr.sortingOrder = Mathf.RoundToInt(transform.position.y * -10f);
+
         #region Decrease TimeToShoot
         if (shootCoolDown > 0)
         {
