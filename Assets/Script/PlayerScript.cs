@@ -19,26 +19,26 @@ public class PlayerScript : MonoBehaviour
     Vector2 move;
     Vector3 target;
     Rigidbody2D rb;
-    SpriteRenderer sr;
 
     void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
         shootCoolDown = 0;
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-
-        sr.sortingOrder = Mathf.RoundToInt(playerFoot.transform.position.y * -10f);
-
         #region Decrease TimeToShoot
         if (shootCoolDown > 0)
         {
             shootCoolDown -= Time.deltaTime;
         }
         #endregion
+
+    }
+
+    private void FixedUpdate()
+    {
 
         #region PlayerMoviment
         if (Input.GetKey(KeyCode.LeftShift))
@@ -59,11 +59,7 @@ public class PlayerScript : MonoBehaviour
             transform.position += moveLand * speed;
         }
         #endregion
-    }
 
-    private void FixedUpdate()
-    {
-        
         #region Turn Player
 
         target = Camera.main.ScreenToWorldPoint(Input.mousePosition);

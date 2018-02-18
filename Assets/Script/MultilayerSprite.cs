@@ -11,7 +11,7 @@ public class MultilayerSprite : MonoBehaviour {
         targetRend = target.GetComponent<SpriteRenderer>();
 	}
 	
-	void Update () {
+	void FixedUpdate () {
         if (target.position.y >= transform.position.y + offset)
             rend.sortingOrder = targetRend.sortingOrder + 1;
         else
