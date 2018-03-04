@@ -79,7 +79,15 @@ public class PlayerScript : MonoBehaviour
 
             if (lastInputX != 0 || lastInputY != 0)
             {
-                playerAnimator.SetBool("walking", true);
+                if(speed == speedRun)
+                {
+                    playerAnimator.SetBool("running", true);
+                    playerAnimator.SetBool("walking", false);
+                }
+                else {
+                    playerAnimator.SetBool("walking", true);
+                    playerAnimator.SetBool("running", false);
+                }
                 if (lastInputX > 0)
                 {
                     playerAnimator.SetFloat("lastMoveX", 1f);
@@ -107,6 +115,7 @@ public class PlayerScript : MonoBehaviour
             else
             {
                 playerAnimator.SetBool("walking", false);
+                playerAnimator.SetBool("running", false);
             }
 
 
