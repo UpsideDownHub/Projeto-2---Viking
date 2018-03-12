@@ -460,7 +460,7 @@ GameObject:
   - component: {fileID: 292261988}
   - component: {fileID: 292261991}
   - component: {fileID: 292261990}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: lake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -660,7 +660,7 @@ GameObject:
   - component: {fileID: 436347278}
   - component: {fileID: 436347281}
   - component: {fileID: 436347280}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tree_trunk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -764,7 +764,7 @@ GameObject:
   - component: {fileID: 497343518}
   - component: {fileID: 497343517}
   - component: {fileID: 497343516}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: seagull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -856,7 +856,7 @@ GameObject:
   - component: {fileID: 550144704}
   - component: {fileID: 550144703}
   - component: {fileID: 550144702}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Top_Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -961,7 +961,7 @@ GameObject:
   - component: {fileID: 598797866}
   - component: {fileID: 598797869}
   - component: {fileID: 598797868}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1165,7 +1165,7 @@ GameObject:
   - component: {fileID: 1078542158}
   - component: {fileID: 1078542160}
   - component: {fileID: 1078542161}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Obstacle_Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1379,7 +1379,7 @@ GameObject:
   - component: {fileID: 1296242268}
   - component: {fileID: 1296242271}
   - component: {fileID: 1296242270}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: trees_trunks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1497,7 +1497,7 @@ GameObject:
   - component: {fileID: 1327393894}
   - component: {fileID: 1327393897}
   - component: {fileID: 1327393896}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: rock2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1760,7 +1760,7 @@ GameObject:
   - component: {fileID: 1333990053}
   - component: {fileID: 1333990056}
   - component: {fileID: 1333990055}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: plant_vase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1867,6 +1867,7 @@ GameObject:
   - component: {fileID: 1386754055}
   - component: {fileID: 1386754054}
   - component: {fileID: 1386754053}
+  - component: {fileID: 1386754059}
   m_Layer: 11
   m_Name: Enemy (1)
   m_TagString: Untagged
@@ -2005,6 +2006,26 @@ RectTransform:
   m_AnchoredPosition: {x: -19.25, y: 7.02}
   m_SizeDelta: {x: 0.16, y: 0.16}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1386754059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1386754052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b226697a7d1e347b00b2caae46dec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 10
+  viewAngle: 360
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 256
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  visibleTargets: []
 --- !u!1 &1389798648
 GameObject:
   m_ObjectHideFlags: 0
@@ -2115,7 +2136,7 @@ GameObject:
   - component: {fileID: 1470585747}
   - component: {fileID: 1470585750}
   - component: {fileID: 1470585749}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: water_bucket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2223,6 +2244,7 @@ GameObject:
   - component: {fileID: 1595190980}
   - component: {fileID: 1595190979}
   - component: {fileID: 1595190978}
+  - component: {fileID: 1595190984}
   m_Layer: 11
   m_Name: Enemy (2)
   m_TagString: Untagged
@@ -2361,6 +2383,26 @@ RectTransform:
   m_AnchoredPosition: {x: 6.79, y: -5.58}
   m_SizeDelta: {x: 0.16, y: 0.16}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1595190984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1595190977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b226697a7d1e347b00b2caae46dec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 10
+  viewAngle: 360
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 256
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  visibleTargets: []
 --- !u!1 &1761972305
 GameObject:
   m_ObjectHideFlags: 0
@@ -2372,7 +2414,7 @@ GameObject:
   - component: {fileID: 1761972306}
   - component: {fileID: 1761972309}
   - component: {fileID: 1761972308}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tree1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2482,7 +2524,7 @@ GameObject:
   - component: {fileID: 1933714038}
   - component: {fileID: 1933714041}
   - component: {fileID: 1933714040}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: water_bucket2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2663,6 +2705,7 @@ GameObject:
   - component: {fileID: 1979084752}
   - component: {fileID: 1979084756}
   - component: {fileID: 1979084757}
+  - component: {fileID: 1979084755}
   m_Layer: 11
   m_Name: Enemy
   m_TagString: Untagged
@@ -2759,6 +2802,26 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!114 &1979084755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1979084751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b226697a7d1e347b00b2caae46dec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 10
+  viewAngle: 360
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 256
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  visibleTargets: []
 --- !u!114 &1979084756
 MonoBehaviour:
   m_ObjectHideFlags: 0

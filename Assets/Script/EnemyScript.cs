@@ -11,6 +11,8 @@ public class EnemyScript : MonoBehaviour
 
     [SerializeField] Transform shot;
 
+    FieldOfView fow;
+
     [SerializeField] float enemySpeed = 3;
 
     float shootRate = 1;
@@ -20,6 +22,7 @@ public class EnemyScript : MonoBehaviour
 
     void Start()
     {
+        fow = gameObject.GetComponent<FieldOfView>();
         enemyLife = totalLife;
         sel = EnemyLifeLabel.GetComponent<ShowingEnemyLife>();
         shootCoolDown = 0;
@@ -39,7 +42,7 @@ public class EnemyScript : MonoBehaviour
     {
         #region Enemy Run unto Player
 
-        if (CanSee() && Vector3.Distance(transform.position, Player.transform.position) > 2)
+        if (fow.visibleTargets.Contains(Player) && Vector3.Distance(transform.position, Player.transform.position) > 2)
         {
             transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, enemySpeed * Time.deltaTime);
         }
@@ -76,13 +79,6 @@ public class EnemyScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    bool CanSee()
-    {
-        bool canSee;
-        canSee = Physics2D.OverlapCircle(transform.position, 12f, Players);
-        return canSee;
     }
 
     bool IsAlmostNear()
