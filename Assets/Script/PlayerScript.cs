@@ -14,7 +14,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] Animator playerAnimator;
     float shootRate = 1f;
     float shootCoolDown;
-    string kinfOfFlour;
+    string kindOfFlour;
 
     public int typeOfShot = 1;
     float speed;
@@ -63,7 +63,7 @@ public class PlayerScript : MonoBehaviour
         else
             speed = speedWalk;
 
-        if (kinfOfFlour == "Ice")
+        if (kindOfFlour == "Ice")
         {
             move.x = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
             move.y = Input.GetAxis("Vertical") * speed * Time.deltaTime;
@@ -73,56 +73,56 @@ public class PlayerScript : MonoBehaviour
         else
         {
             rb.velocity = new Vector2(0, 0);
+            
+            Vector3 moveLand = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime, Input.GetAxis("Vertical") * Time.deltaTime);
+            transform.position += moveLand * speed;
+        }
 
-            float lastInputX = Input.GetAxis("Horizontal");
-            float lastInputY = Input.GetAxis("Vertical");
+        float lastInputX = Input.GetAxis("Horizontal");
+        float lastInputY = Input.GetAxis("Vertical");
 
-            if (lastInputX != 0 || lastInputY != 0)
+        if (lastInputX != 0 || lastInputY != 0)
+        {
+            if (speed == speedRun)
             {
-                if(speed == speedRun)
-                {
-                    playerAnimator.SetBool("running", true);
-                    playerAnimator.SetBool("walking", false);
-                }
-                else {
-                    playerAnimator.SetBool("walking", true);
-                    playerAnimator.SetBool("running", false);
-                }
-                if (lastInputX > 0)
-                {
-                    playerAnimator.SetFloat("lastMoveX", 1f);
-                }else if(lastInputX < 0)
-                {
-                    playerAnimator.SetFloat("lastMoveX", -1f);
-                }
-                else
-                {
-                    playerAnimator.SetFloat("lastMoveX", 0f);
-                }
-
-                if(lastInputY > 0)
-                {
-                    playerAnimator.SetFloat("lastMoveY", 1f);
-                }else if(lastInputY < 0)
-                {
-                    playerAnimator.SetFloat("lastMoveY", 1f);
-                }
-                else
-                {
-                    playerAnimator.SetFloat("lastMoveY", 0f);
-                }
+                playerAnimator.SetBool("running", true);
+                playerAnimator.SetBool("walking", false);
             }
             else
             {
-                playerAnimator.SetBool("walking", false);
+                playerAnimator.SetBool("walking", true);
                 playerAnimator.SetBool("running", false);
             }
+            if (lastInputX > 0)
+            {
+                playerAnimator.SetFloat("lastMoveX", 1f);
+            }
+            else if (lastInputX < 0)
+            {
+                playerAnimator.SetFloat("lastMoveX", -1f);
+            }
+            else
+            {
+                playerAnimator.SetFloat("lastMoveX", 0f);
+            }
 
-
-            
-
-            Vector3 moveLand = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime, Input.GetAxis("Vertical") * Time.deltaTime);
-            transform.position += moveLand * speed;
+            if (lastInputY > 0)
+            {
+                playerAnimator.SetFloat("lastMoveY", 1f);
+            }
+            else if (lastInputY < 0)
+            {
+                playerAnimator.SetFloat("lastMoveY", 1f);
+            }
+            else
+            {
+                playerAnimator.SetFloat("lastMoveY", 0f);
+            }
+        }
+        else
+        {
+            playerAnimator.SetBool("walking", false);
+            playerAnimator.SetBool("running", false);
         }
         #endregion
 
@@ -162,19 +162,19 @@ public class PlayerScript : MonoBehaviour
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ice"))
         {
-            kinfOfFlour = "Ice";
+            kindOfFlour = "Ice";
             speedRun = 4;
             speedWalk = 3;
         }
         else if (collision.gameObject.layer == LayerMask.NameToLayer("Water"))
         {
-            kinfOfFlour = "Water";
+            kindOfFlour = "Water";
             speedRun = 3;
             speedWalk = 2;
         }
         else if (collision.gameObject.layer == LayerMask.NameToLayer("Land"))
         {
-            kinfOfFlour = "Land";
+            kindOfFlour = "Land";
             speedRun = 5;
             speedWalk = 4;
         }
