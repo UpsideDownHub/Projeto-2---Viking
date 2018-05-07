@@ -8,6 +8,7 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] Transform Player;
     ShowingEnemyLife sel;
     [SerializeField] GameObject EnemyLifeLabel;
+    [SerializeField] GameObject EnemyView;
 
     [SerializeField] Transform shot;
 
@@ -17,15 +18,44 @@ public class EnemyScript : MonoBehaviour
 
     float shootRate = 1;
     float shootCoolDown;
-    int totalLife = 5;
+    int totalLife = 3;
     int enemyLife;
+
+    List<Vector2> lastPlayerPositions = new List<Vector2>();
+    float lastPositionsRate = 1;
+    float lastPositionsCountDown;
+    int pos = 0;
+
+    bool justSaw = false;
+    float stillLookingRate = 0.25f;
+    float stillLookingCountDown;
+
+    List<int> lookAroundAngles = new List<int>() { 90, -90, -90 };
+    int anlgesIndex = 0;
+    bool look = false;
+    float lookAroundRate = 1f;
+    float lookAroundCountDown;
+
+    public float StillLookingRate
+    {
+        get
+        {
+            return stillLookingRate;
+        }
+
+        set
+        {
+            stillLookingRate = value;
+        }
+    }
 
     void Start()
     {
-        fow = gameObject.GetComponent<FieldOfView>();
+        fow = EnemyView.GetComponent<FieldOfView>();
         enemyLife = totalLife;
         sel = EnemyLifeLabel.GetComponent<ShowingEnemyLife>();
         shootCoolDown = 0;
+        lastPositionsCountDown = lastPositionsRate;
     }
 
     void Update()
@@ -36,19 +66,105 @@ public class EnemyScript : MonoBehaviour
             shootCoolDown -= Time.deltaTime;
         }
         #endregion
+
+        if (lastPositionsCountDown > 0)
+        {
+            lastPositionsCountDown -= Time.deltaTime;
+        }
+
+        if (stillLookingCountDown > 0 && !fow.visibleTargets.Contains(Player))
+        {
+            stillLookingCountDown -= Time.deltaTime;
+            justSaw = true;
+        }
+
+        if (lookAroundCountDown > 0)
+        {
+            lookAroundCountDown -= Time.deltaTime;
+        }
+        if (fow.visibleTargets.Contains(Player))
+        {
+            anlgesIndex = 0;
+            lookAroundCountDown = 0;
+            look = false;
+        }
+        if (look)
+        {
+            if (lookAroundCountDown <= 0)
+            {
+                transform.Rotate(0, 0, lookAroundAngles[anlgesIndex]);
+                anlgesIndex++;
+                if (anlgesIndex == 3)
+                {
+                    anlgesIndex = 0;
+                    look = false;
+                }
+                else
+                {
+                    lookAroundCountDown = lookAroundRate;
+                }
+            }
+        }
     }
 
     private void FixedUpdate()
     {
         #region Enemy Run unto Player
 
-        if (fow.visibleTargets.Contains(Player) && Vector3.Distance(transform.position, Player.transform.position) > 2)
+        if (fow.visibleTargets.Contains(Player))
         {
-            transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, enemySpeed * Time.deltaTime);
+            if (Vector3.Distance(transform.position, Player.transform.position) > 2)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, enemySpeed * Time.deltaTime);
+                if (fow.visibleTargets.Contains(Player))
+                {
+                    stillLookingCountDown = stillLookingRate;
+                    if (lastPositionsCountDown <= 0)
+                    {
+                        lastPositionsCountDown = lastPositionsRate;
+                        lastPlayerPositions.Add(Player.transform.position);
+                        if (lastPlayerPositions.Count == 3)
+                        {
+                            for (int i = 0; i < 2; i++)
+                            {
+                                lastPlayerPositions[i] = lastPlayerPositions[1 + i];
+                            }
+                            lastPlayerPositions.Remove(lastPlayerPositions[2]);
+                        }
+                    }
+                }
+            }
         }
-
-        var angle = Mathf.Atan2(Player.transform.position.y - transform.position.y, Player.transform.position.x - transform.position.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        else if (justSaw)
+        {
+            if (transform.position != new Vector3(lastPlayerPositions[pos].x, lastPlayerPositions[pos].y, 0.0f))
+            {
+                transform.position = Vector3.MoveTowards(transform.position, lastPlayerPositions[pos], enemySpeed * Time.deltaTime);
+            }
+            else
+            {
+                if (pos < lastPlayerPositions.Count - 1)
+                {
+                    pos++;
+                    if (pos == 2)
+                    {
+                        pos = 0;
+                        justSaw = false;
+                        lastPlayerPositions.Clear();
+                        lookAroundCountDown = lookAroundRate;
+                        look = true;
+                    }
+                }
+                else
+                {
+                    pos = 0;
+                    justSaw = false;
+                    lastPlayerPositions.Clear();
+                    lookAroundCountDown = lookAroundRate;
+                    look = true;
+                }
+            }
+        }
 
         #endregion
 

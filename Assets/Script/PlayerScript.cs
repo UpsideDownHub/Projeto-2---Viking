@@ -8,10 +8,9 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float speedWalk = 4;
     [SerializeField] float speedRun = 5;
     [SerializeField] Transform shot;
-    [SerializeField] Transform playerFoot;
     [SerializeField] int playerLife;
     [SerializeField] GameObject Item;
-    [SerializeField] Animator playerAnimator;
+    Animator playerAnimator;
     float shootRate = 1f;
     float shootCoolDown;
     string kindOfFlour;

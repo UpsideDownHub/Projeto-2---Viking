@@ -8,15 +8,19 @@ public class FieldOfView : MonoBehaviour
     public float viewRadius;
     [Range(0, 360)]
     public float viewAngle;
+    [Range(0, 360)]
+    public float rotation;
 
     public LayerMask targetMask;
     public LayerMask obstacleMask;
+    [SerializeField] Transform Player;
 
     [HideInInspector]
     public List<Transform> visibleTargets = new List<Transform>();
 
     void Start()
     {
+        transform.rotation = Quaternion.Euler(0, 0, rotation);
         StartCoroutine("FindTargetWithDelay", 0.2f);
     }
 
@@ -61,5 +65,14 @@ public class FieldOfView : MonoBehaviour
             angleInDegrees -= transform.eulerAngles.z;
         }
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), Mathf.Cos(angleInDegrees * Mathf.Deg2Rad), 0);
+    }
+
+    private void FixedUpdate()
+    {
+        if (visibleTargets.Contains(Player))
+        {
+            var angle = Mathf.Atan2(Player.transform.position.y - transform.position.y, Player.transform.position.x - transform.position.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+        }
     }
 }
